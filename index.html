@@ -1,0 +1,99 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wesley's English Adventure · v3</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,"PingFang TC",sans-serif;background:#182536;color:#243041}.app{max-width:980px;margin:auto;background:#f7f3e9;min-height:100vh}.top{padding:22px;background:linear-gradient(135deg,#74d6ff,#a890ff,#ffbd79);color:#172033}.top h1{margin:0;font-size:clamp(28px,7vw,54px)}.top p{font-weight:800}.stats{display:flex;gap:10px;flex-wrap:wrap}.stat{background:#ffffffbb;padding:9px 14px;border-radius:16px;font-weight:900}.nav{display:flex;overflow:auto;gap:8px;padding:10px;background:white;position:sticky;top:0;z-index:5}.nav button,.choice,.go{border:0;border-radius:14px;padding:11px 14px;font-weight:900;background:#e8edf3;cursor:pointer}.nav button.on{background:#ffd76d}.page{display:none;padding:20px}.page.on{display:block}.hero,.card{background:white;border-radius:24px;padding:20px;margin-bottom:18px;box-shadow:0 7px 0 #ddd4c7}.hero{background:linear-gradient(135deg,#e2f6ff,#fff1c5)}.map{display:grid;grid-template-columns:1fr 1fr;gap:14px}.world{border:0;border-radius:24px;padding:18px;text-align:left;font-weight:900;cursor:pointer;font-size:17px;min-height:165px}.world b{display:block;font-size:26px}.world span{font-size:54px;display:block}.mission{border-left:8px solid #65c8ff}.scene{background:#27384e;color:white;border-radius:25px;padding:22px;text-align:center;min-height:260px;font-size:20px}.scene .big{font-size:90px}.dialogue{font-size:20px;font-weight:800;background:white;color:#243041;padding:15px;border-radius:18px;margin:10px}.dialogue:nth-child(odd){background:#dff3ff}.choices{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.choice{background:#f5efe5;border:2px solid #d9cfc1}.choice.good{background:#bff0c8}.choice.bad{background:#ffc9c9}.feedback{font-weight:900;font-size:19px;min-height:30px}.wordgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.word{padding:16px;border-radius:22px;background:#fff0b4;text-align:center;font-weight:900;font-size:20px;cursor:pointer}.word:nth-child(2n){background:#dff2ff}.word span{font-size:48px;display:block}.progress{height:16px;background:#d9e0e7;border-radius:20px;overflow:hidden}.progress div{height:100%;background:#72ce91;width:0}.boss{background:#ffe1e8;border:3px dashed #f27894}.locked{opacity:.65}.journal textarea{width:100%;min-height:120px;border:2px dashed #b9aa99;border-radius:16px;padding:14px;font-size:17px}.badge{font-size:55px}.small{color:#667080;font-size:14px}
+@media(max-width:600px){.map{grid-template-columns:1fr}.wordgrid{grid-template-columns:1fr 1fr}}
+</style>
+<div class="app">
+<header class="top"><h1>🎒 Wesley's English Adventure</h1><p>Here We Go 5 · Play • Learn • Speak • Collect</p><div class="stats"><div class="stat">⭐ XP <span id="xp">0</span></div><div class="stat">🔥 Streak <span id="streak">1</span></div><div class="stat">🏅 Level <span id="level">1</span></div></div></header>
+<nav class="nav"><button class="on" onclick="show('home',this)">🏠 Home</button><button onclick="show('u1',this)">📅 Day Village</button><button onclick="show('u2',this)">🏫 School City</button><button onclick="show('journal',this)">📔 My Journal</button><button onclick="show('passport',this)">🏆 Passport</button></nav>
+
+<section id="home" class="page on"><div class="hero"><h2>👋 Hi, Wesley!</h2><h1>Ready for today's quest?</h1><p>今天不是「上英文課」。今天要去救回被打亂的星期！</p><button class="go" onclick="show('u1',document.querySelectorAll('.nav button')[1])">▶ Continue Adventure</button></div>
+<div class="card"><h2>🗺️ Adventure Map</h2><div class="map"><button class="world" onclick="show('u1',document.querySelectorAll('.nav button')[1])" style="background:#cceeff"><span>📅🏘️</span><b>DAY VILLAGE</b>Fix the broken week<br><small>Unit 1 · OPEN</small></button><button class="world" onclick="show('u2',document.querySelectorAll('.nav button')[2])" style="background:#dff4dc"><span>🏫🎒</span><b>SCHOOL CITY</b>Find the missing timetable<br><small>Unit 2 · OPEN</small></button><button class="world locked"><span>🗺️🚏</span><b>TRAVEL TOWN</b>Choose your route</button><button class="world locked"><span>🐨🌳</span><b>ANIMAL ISLAND</b>Count the animals</button></div></div>
+<div class="card mission"><h2>🎯 Today's Mission</h2><p><b>Mission:</b> Fix the Week Calendar</p><p>⏱ 約 5 分鐘　🎮 4 個互動　🏆 1 個 Boss</p><div class="progress"><div id="homeProg"></div></div><p id="homePct">0% completed</p></div></section>
+
+<section id="u1" class="page"><div class="hero"><div class="small">UNIT 1 · DAY VILLAGE</div><h1>📅 Calendar Chaos!</h1><p>⚠️ 星期村的日曆被 Calendar Bot 打亂了。你能把它修好嗎？</p><div class="progress"><div id="unitProg"></div></div><p id="unitPct">Mission progress 0%</p></div>
+
+<div class="card"><h2>🎬 Mission 1 · Wake Up!</h2><div class="scene"><div class="big">🧒🛏️⏰</div><div class="dialogue">Wesley: 😴 What day is today?</div><div class="dialogue">📅 Calendar: <b>MONDAY</b></div></div><div class="choices" data-answer="It's Monday."><button class="choice">It's Monday.</button><button class="choice">I'm Monday.</button><button class="choice">Monday school?</button></div><div class="feedback"></div></div>
+
+<div class="card"><h2>🔊 Mission 2 · Word Hunt</h2><p>點貼紙聽發音。聽完 3 個就算找到線索！</p><div class="wordgrid">
+<div class="word" data-say="Monday"><span>🏫</span>Monday</div><div class="word" data-say="Tuesday"><span>⚽</span>Tuesday</div><div class="word" data-say="Wednesday"><span>📚</span>Wednesday</div><div class="word" data-say="Thursday"><span>🎸</span>Thursday</div><div class="word" data-say="Friday"><span>🎉</span>Friday</div><div class="word" data-say="Saturday"><span>🎮</span>Saturday</div><div class="word" data-say="Sunday"><span>☀️</span>Sunday</div>
+</div></div>
+
+<div class="card"><h2>🧩 Mission 3 · Fix the Week</h2><p>星期順序壞掉了！第一天是哪一天？</p><div class="choices" data-answer="Monday"><button class="choice">Friday</button><button class="choice">Monday</button><button class="choice">Sunday</button></div><div class="feedback"></div><hr><p>接著是哪一天？</p><div class="choices" data-answer="Tuesday"><button class="choice">Tuesday</button><button class="choice">Saturday</button><button class="choice">Thursday</button></div><div class="feedback"></div></div>
+
+<div class="card"><h2>🪄 Mission 4 · Sentence Builder</h2><p>把英文魔法積木組成正確回答：</p><div id="sentence" style="font-size:26px;font-weight:900;padding:15px;background:#fff2aa;border-radius:18px;min-height:60px"></div><div class="choices"><button class="choice block">Monday.</button><button class="choice block">It's</button><button class="choice block">Friday.</button></div><button class="go" onclick="checkSentence()">✨ Cast Spell</button><div id="spellFeed" class="feedback"></div></div>
+
+<div class="card boss"><h2>👾 FINAL BOSS · Calendar Bot</h2><div class="scene" style="background:#7d3e5b"><div class="big">🤖📅💥</div><p>Robot: I mixed everything up!</p><p><b>Question: What day is today?</b></p></div><div class="choices" data-answer="It's Saturday."><button class="choice">It's Saturday.</button><button class="choice">I'm Saturday.</button><button class="choice">Saturday is.</button></div><div class="feedback"></div></div>
+<div class="card"><h2>🎉 Mission Reward</h2><p class="badge">🔒 → 🏅</p><p id="reward">完成 4 個任務，解鎖 <b>Calendar Fixer</b> 徽章！</p></div></section>
+
+
+<section id="u2" class="page">
+<div class="hero"><div class="small">UNIT 2 · SCHOOL CITY</div><h1>🏫 Timetable Trouble!</h1><p>⚠️ Timetable Robot 把 Wesley 的課表藏起來了！找回課程、看懂時間表，才能離開 School City。</p><div class="progress"><div id="schoolProg"></div></div><p id="schoolPct">School mission progress 0%</p></div>
+
+<div class="card"><h2>🎬 Mission 1 · Where Is My Class?</h2>
+<div class="scene"><div class="big">🧒🎒🏫</div><div class="dialogue">Wesley: Where is my PE class?</div><div class="dialogue">🤖 Robot: Find the subject first!</div></div>
+<div class="choices" data-answer="PE"><button class="choice">PE</button><button class="choice">Monday</button><button class="choice">Koala</button></div><div class="feedback"></div></div>
+
+<div class="card"><h2>🔎 Mission 2 · Subject Hunt</h2><p>點課程貼紙聽發音，收集至少 3 個課程線索。</p>
+<div class="wordgrid">
+<div class="word schoolword" data-say="English"><span>🔤</span>English</div>
+<div class="word schoolword" data-say="Math"><span>➗</span>Math</div>
+<div class="word schoolword" data-say="PE"><span>⚽</span>PE</div>
+<div class="word schoolword" data-say="Art"><span>🎨</span>Art</div>
+<div class="word schoolword" data-say="Music"><span>🎵</span>Music</div>
+<div class="word schoolword" data-say="Chinese"><span>📕</span>Chinese</div>
+</div></div>
+
+<div class="card"><h2>📅 Mission 3 · Read the Timetable</h2>
+<p><b>Wesley's Mini Timetable</b></p>
+<table style="width:100%;border-collapse:collapse;text-align:center;font-size:17px"><tr><th style="padding:10px">Day</th><th>Morning</th><th>Afternoon</th></tr>
+<tr style="background:#dff3ff"><td style="padding:10px">Monday</td><td>English</td><td>PE</td></tr>
+<tr><td style="padding:10px">Tuesday</td><td>Math</td><td>Art</td></tr>
+<tr style="background:#dff3ff"><td style="padding:10px">Wednesday</td><td>Chinese</td><td>Music</td></tr></table>
+<hr><p>Do you have PE class on Monday?</p>
+<div class="choices schoolquiz" data-answer="Yes, I do."><button class="choice">Yes, I do.</button><button class="choice">No, I don't.</button></div><div class="feedback"></div>
+<p>Do you have Music class on Tuesday?</p>
+<div class="choices schoolquiz" data-answer="No, I don't."><button class="choice">Yes, I do.</button><button class="choice">No, I don't.</button></div><div class="feedback"></div></div>
+
+<div class="card"><h2>🪄 Mission 4 · Answer Builder</h2>
+<p>Robot asks: <b>Do you have English class on Monday?</b></p>
+<div id="schoolSentence" style="font-size:26px;font-weight:900;padding:15px;background:#dff4dc;border-radius:18px;min-height:60px"></div>
+<div class="choices"><button class="choice schoolblock">Yes,</button><button class="choice schoolblock">I do.</button><button class="choice schoolblock">No,</button></div>
+<button class="go" onclick="checkSchoolSentence()">✨ Send Answer</button><div id="schoolSpellFeed" class="feedback"></div></div>
+
+<div class="card boss"><h2>🤖 FINAL BOSS · Timetable Robot</h2>
+<div class="scene" style="background:#3c6d68"><div class="big">🤖📅⚡</div><p>Robot: One final question!</p><p><b>Do you have Art class on Tuesday?</b></p></div>
+<div class="choices schoolboss" data-answer="Yes, I do."><button class="choice">Yes, I do.</button><button class="choice">No, I don't.</button></div><div class="feedback"></div></div>
+
+<div class="card"><h2>🎉 School City Reward</h2><p class="badge">🔒 → 🏫🏅</p><p id="schoolReward">完成任務，解鎖 <b>School Explorer</b> 徽章！</p></div>
+</section>
+<section id="journal" class="page"><div class="hero"><h1>📔 My English Journal</h1><p>把今天學到的英文留下來。這才是「Wesley 的手帳」。</p></div><div class="card journal"><h2>⭐ Today's Word</h2><p>My word: <b id="journalWord">Monday</b></p><h2>🗣 My Sentence</h2><textarea id="note" placeholder="Write or type: It's Monday!"></textarea><button class="go" onclick="saveNote()">💾 Save My Page</button><p id="saved" class="feedback"></p></div></section>
+
+<section id="passport" class="page"><div class="hero"><h1>🏆 Wesley's Passport</h1><p>你的英文冒險，不是只有分數，而是一段看得見的旅程。</p></div><div class="card"><h2>📅 Day Village</h2><p id="badgeStatus">🔒 Calendar Fixer</p><div class="progress"><div id="passProg"></div></div><p>XP <span id="pxp">0</span> · Level <span id="plevel">1</span></p></div><div class="card"><h2>🏫 School City</h2><p id="schoolBadgeStatus">🔒 School Explorer</p><div class="progress"><div id="schoolPassProg"></div></div><p>找到課程、看懂課表、打敗 Timetable Robot！</p></div><div class="card"><h2>🎖️ Next Unlock</h2><p>🗺️ Travel Town</p><p>School City 完成後，下一站準備出發。</p></div></section>
+</div>
+<script>
+let xp=+localStorage.getItem('wv3xp')||0,done=JSON.parse(localStorage.getItem('wv3done')||'[]'),heard=+localStorage.getItem('wv3heard')||0,blocks=[];
+const total=5;
+function show(id,b){document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('on'));if(b)b.classList.add('on');scrollTo({top:0,behavior:'smooth'})}
+function save(){localStorage.setItem('wv3xp',xp);localStorage.setItem('wv3done',JSON.stringify(done));localStorage.setItem('wv3heard',heard)}
+function refresh(){let pct=Math.min(100,Math.round((done.length/total)*100));['homeProg','unitProg','passProg'].forEach(i=>document.getElementById(i).style.width=pct+'%');document.getElementById('homePct').textContent=pct+'% completed';document.getElementById('unitPct').textContent='Mission progress '+pct+'%';document.getElementById('xp').textContent=xp;document.getElementById('pxp').textContent=xp;let lv=Math.floor(xp/30)+1;document.getElementById('level').textContent=lv;document.getElementById('plevel').textContent=lv;if(done.includes('boss'))document.getElementById('badgeStatus').textContent='🏅 Calendar Fixer · UNLOCKED';save()}
+function win(id,n=10){if(!done.includes(id)){done.push(id);xp+=n;refresh()}}
+document.querySelectorAll('[data-answer]').forEach((box,idx)=>box.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{if(box.dataset.lock)return;box.dataset.lock=1;let feed=box.nextElementSibling;if(btn.textContent.trim()===box.dataset.answer){btn.classList.add('good');feed.textContent='🎉 Correct! +10 XP';win('q'+idx)}else{btn.classList.add('bad');feed.textContent='💡 Try again next time! The green answer is correct.';[...box.children].find(x=>x.textContent.trim()===box.dataset.answer).classList.add('good')}if(idx===3&&btn.textContent.trim()===box.dataset.answer)win('boss',20)}));
+document.querySelectorAll('[data-say]').forEach(w=>w.onclick=()=>{let t=w.dataset.say;let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u);heard++;if(heard===3)win('hear',5);localStorage.setItem('wv3heard',heard);document.getElementById('journalWord').textContent=t});
+document.querySelectorAll('.block').forEach(b=>b.onclick=()=>{blocks.push(b.textContent.trim());document.getElementById('sentence').textContent=blocks.join(' ');});
+function checkSentence(){let f=document.getElementById('spellFeed');if(blocks.join(' ')==="It's Monday."){f.textContent='✨ Spell complete!';win('spell',10)}else f.textContent='🧩 Try another order!';blocks=[];document.getElementById('sentence').textContent=''}
+function saveNote(){localStorage.setItem('wv3note',document.getElementById('note').value);document.getElementById('saved').textContent='📔 Saved! This page is yours.'}
+
+let schoolDone=JSON.parse(localStorage.getItem('wv3schooldone')||'[]'), schoolHeard=+localStorage.getItem('wv3schoolheard')||0, schoolBlocks=[];
+function schoolSave(){localStorage.setItem('wv3schooldone',JSON.stringify(schoolDone));localStorage.setItem('wv3schoolheard',schoolHeard)}
+function schoolWin(id,n=10){if(!schoolDone.includes(id)){schoolDone.push(id);xp+=n;schoolRefresh();refresh()}}
+function schoolRefresh(){let pct=Math.min(100,Math.round((schoolDone.length/total)*100));['schoolProg','schoolPassProg'].forEach(i=>{let e=document.getElementById(i);if(e)e.style.width=pct+'%'});let t=document.getElementById('schoolPct');if(t)t.textContent='School mission progress '+pct+'%';let b=document.getElementById('schoolBadgeStatus');if(b&&schoolDone.includes('schoolboss'))b.textContent='🏅 School Explorer · UNLOCKED';schoolSave()}
+document.querySelectorAll('[data-answer]').forEach((box,idx)=>{if(!box.classList.contains('schoolquiz')&&!box.classList.contains('schoolboss')&&box.closest('#u2'))box.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{})});
+document.querySelectorAll('#u2 [data-answer]').forEach((box,idx)=>box.querySelectorAll('button').forEach(btn=>btn.onclick=()=>{if(box.dataset.schoolLock)return;box.dataset.schoolLock=1;let feed=box.nextElementSibling;if(btn.textContent.trim()===box.dataset.answer){btn.classList.add('good');feed.textContent='🎉 Correct!';schoolWin('sq'+idx,idx===3?20:10);if(box.classList.contains('schoolboss'))schoolWin('schoolboss',20)}else{btn.classList.add('bad');feed.textContent='💡 Look at the timetable!';[...box.children].find(x=>x.textContent.trim()===box.dataset.answer).classList.add('good')}}));
+document.querySelectorAll('.schoolword').forEach(w=>w.onclick=()=>{let u=new SpeechSynthesisUtterance(w.dataset.say);u.lang='en-US';u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u);schoolHeard++;if(schoolHeard===3)schoolWin('schoolhear',5);schoolSave()});
+document.querySelectorAll('.schoolblock').forEach(b=>b.onclick=()=>{schoolBlocks.push(b.textContent.trim());document.getElementById('schoolSentence').textContent=schoolBlocks.join(' ')});
+function checkSchoolSentence(){let f=document.getElementById('schoolSpellFeed');if(schoolBlocks.join(' ')==='Yes, I do.'){f.textContent='✨ Perfect answer!';schoolWin('schoolspell',10)}else f.textContent='🧩 Try: Yes, + I do.';schoolBlocks=[];document.getElementById('schoolSentence').textContent=''}
+document.getElementById('note').value=localStorage.getItem('wv3note')||'';schoolRefresh();refresh();
+
+</script>

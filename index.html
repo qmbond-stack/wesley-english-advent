@@ -49,6 +49,8 @@ textarea{width:100%;min-height:120px;border:2px dashed #b9aa99;border-radius:16p
 <button onclick="show('u1',this)">📅 Day Village</button>
 <button onclick="show('u2',this)">🏫 School City</button>
 <button onclick="show('u3',this)">🗺️ Travel Town</button>
+<button onclick="show('u4',this)">🐨 Animal Island</button>
+<button onclick="show('u5',this)">🍔 Food Market</button>
 <button onclick="show('journal',this)">📔 Journal</button>
 <button onclick="show('passport',this)">🏆 Passport</button>
 </nav>
@@ -63,7 +65,7 @@ textarea{width:100%;min-height:120px;border:2px dashed #b9aa99;border-radius:16p
 <button class="world" style="background:#cceeff" onclick="show('u1',document.querySelectorAll('.nav button')[1])"><span>📅🏘️</span><b>DAY VILLAGE</b>Fix the broken week<br><small>Unit 1 · OPEN</small></button>
 <button class="world" style="background:#dff4dc" onclick="show('u2',document.querySelectorAll('.nav button')[2])"><span>🏫🎒</span><b>SCHOOL CITY</b>Sentence Explorer Challenge<br><small>Unit 2 · CHALLENGE</small></button>
 <button class="world" style="background:#ffe3b5" onclick="show('u3',document.querySelectorAll('.nav button')[3])"><span>🗺️🚏</span><b>TRAVEL TOWN</b>Choose your route<br><small>Unit 3 · NEW</small></button>
-<button class="world locked"><span>🐨🌳</span><b>ANIMAL ISLAND</b>Survival English</button>
+<button class="world" style="background:#d8f0d5" onclick="show('u4',document.querySelectorAll('.nav button')[4])"><span>🐨🌳</span><b>ANIMAL ISLAND</b>Read the wild clues<br><small>Unit 4 · NEW</small></button>
 </div></div>
 <div class="card mission"><h2>🎯 Challenge Status</h2><p><b>Current Mission:</b> School City</p><div class="progress"><div id="homeProg"></div></div><p id="homePct">0% completed</p></div>
 </section>
@@ -156,13 +158,58 @@ The station is across from the hotel. The museum is next to the hotel. Amy is at
 <div class="card"><h2>🏆 Travel Town Reward</h2><p class="badge">🔒 → 🧭🏅</p><p id="travelReward">完成 4 個挑戰，解鎖 <b>Travel Navigator</b>！</p></div>
 </section>
 
+<section id="u4" class="page"><div class="hero"><div class="small">UNIT 4 · ANIMAL ISLAND</div><h1>🐨 Wild Clue Challenge!</h1><p>Animal Bot 把資料卡混在一起了。靠描述、數量和閱讀線索找出真正的動物！</p><div class="progress"><div id="unit4Prog"></div></div><p id="unit4Pct">Animal progress 0%</p></div><div class="card challenge"><h2>🦒 Stage 1 · Who Am I?</h2><div class="reading">I am big. I have a long neck. I can eat leaves from tall trees.</div><p><b>What animal am I?</b></p><div class="choices" data-unit="u4" data-id="u4q1" data-answer="A giraffe"><button class="choice">A giraffe</button><button class="choice">A fish</button><button class="choice">A penguin</button></div><div class="feedback"></div></div><div class="card"><h2>🔢 Stage 2 · Animal Math</h2><div class="reading">There are <b>3 koalas</b> in the tree. Two more koalas come.</div><p><b>How many koalas are there now?</b></p><div class="choices" data-unit="u4" data-id="u4q2" data-answer="Five"><button class="choice">Three</button><button class="choice">Five</button><button class="choice">Two</button></div><div class="feedback"></div></div><div class="card challenge"><h2>📖 Stage 3 · Habitat Detective</h2><div class="reading">Penguins cannot fly, but they can swim very well. They live in cold places and eat fish.</div><p><b>What do penguins eat?</b></p><div class="choices" data-unit="u4" data-id="u4q3" data-answer="Fish"><button class="choice">Fish</button><button class="choice">Pizza</button><button class="choice">Leaves</button></div><div class="feedback"></div></div><div class="card boss"><h2>👾 FINAL BOSS · Animal Bot</h2><div class="scene"><div class="big">🤖🐾🌿</div><p>Read ALL the clues!</p></div><div class="reading">This animal lives in Australia. It carries its baby in a pouch. It can jump very far.</div><p><b>Which animal is it?</b></p><div class="choices" data-unit="u4" data-id="u4boss" data-answer="A kangaroo"><button class="choice">A kangaroo</button><button class="choice">A whale</button><button class="choice">A tiger</button></div><div class="feedback"></div></div><div class="card"><h2>🏆 Animal Island Reward</h2><p class="badge">🔒 → 🐾🏅</p><p>完成 4 個挑戰，解鎖 <b>Wildlife Detective</b>！</p></div></section>
+<section id="u5" class="page">
+<div class="hero"><div class="small">UNIT 5 · FOOD MARKET</div><h1>🍔 Order Up!</h1>
+<p>⚠️ Menu Bot 把餐點、價格和數量全弄亂了。這次 Wesley 要用英文完成真正的點餐任務！</p>
+<div class="progress"><div id="unit5Prog"></div></div><p id="unit5Pct">Food progress 0%</p></div>
+
+<div class="card challenge"><h2>🍎 Stage 1 · How Many?</h2>
+<div class="reading">There are <b>4 apples</b> on the table. Mom buys <b>3 more apples</b>.</div>
+<p><b>How many apples are there now?</b></p>
+<div class="choices" data-unit="u5" data-id="u5q1" data-answer="Seven"><button class="choice">Four</button><button class="choice">Seven</button><button class="choice">Three</button></div><div class="feedback"></div></div>
+
+<div class="card challenge"><h2>🥤 Stage 2 · How Much?</h2>
+<div class="reading">A bottle of water is <b>$20</b>.</div>
+<p><b>How much is the water?</b></p>
+<div class="choices" data-unit="u5" data-id="u5q2" data-answer="$20"><button class="choice">$2</button><button class="choice">$20</button><button class="choice">$200</button></div><div class="feedback"></div></div>
+
+<div class="card"><h2>🗣️ Stage 3 · Order Like a Pro</h2>
+<div class="reading"><b>At the Restaurant</b><br><br>
+Waiter: What would you like?<br>
+Wesley: I would like a hamburger and orange juice.</div>
+<p><b>What does Wesley want?</b></p>
+<div class="choices" data-unit="u5" data-id="u5q3" data-answer="A hamburger and orange juice"><button class="choice">A hamburger and orange juice</button><button class="choice">Only water</button><button class="choice">A math book</button></div><div class="feedback"></div></div>
+
+<div class="card challenge"><h2>🧩 Stage 4 · Order Builder</h2>
+<p>組出自然的點餐句：</p><p><b>我想要一杯果汁。</b></p>
+<div id="foodBuilder" class="builder"></div>
+<div class="choices">
+<button class="choice foodblock" data-word="I">I</button>
+<button class="choice foodblock" data-word="would">would</button>
+<button class="choice foodblock" data-word="like">like</button>
+<button class="choice foodblock" data-word="some">some</button>
+<button class="choice foodblock" data-word="juice.">juice.</button>
+</div>
+<button class="go" onclick="checkFoodBuilder()">✨ Place Order</button>
+<div id="foodBuilderFeed" class="feedback"></div>
+<button class="choice" onclick="resetFoodBuilder()">🔄 Reset</button></div>
+
+<div class="card boss"><h2>👾 FINAL BOSS · Menu Bot</h2>
+<div class="scene"><div class="big">🤖🍔💰</div><p>Menu Bot: Your order is mixed up! Fix it before the restaurant closes!</p></div>
+<div class="reading"><b>Menu</b><br><br>🍔 Hamburger $80<br>🍟 Fries $50<br>🥤 Juice $30<br><br>Wesley buys a hamburger and juice.</div>
+<p><b>How much does Wesley pay?</b></p>
+<div class="choices" data-unit="u5" data-id="u5boss" data-answer="$110"><button class="choice">$80</button><button class="choice">$110</button><button class="choice">$130</button></div><div class="feedback"></div></div>
+
+<div class="card"><h2>🏆 Food Market Reward</h2><p class="badge">🔒 → 🍔🏅</p><p>完成任務，解鎖 <b>Food Explorer</b>！</p></div>
+</section>
 <section id="journal" class="page"><div class="hero"><h1>📔 My English Journal</h1><p>Write your own English.</p></div><div class="card"><h2>⭐ Today's Challenge</h2><p>Write one sentence about your school.</p><textarea id="note" placeholder="I have English on Monday."></textarea><br><br><button class="go" onclick="saveNote()">💾 Save My Page</button><div id="saved" class="feedback"></div></div></section>
 
 <section id="passport" class="page"><div class="hero"><h1>🏆 Wesley's Passport</h1><p>Your adventure is getting harder!</p></div>
 <div class="card"><h2>📅 Day Village</h2><p id="u1Badge">🔒 Calendar Fixer</p><div class="progress"><div id="passU1"></div></div></div>
 <div class="card"><h2>🏫 School City</h2><p id="u2Badge">🔒 Sentence Explorer</p><div class="progress"><div id="passU2"></div></div></div>
 <div class="card"><h2>🗺️ Travel Town</h2><p id="u3Badge">🔒 Travel Navigator</p><div class="progress"><div id="passU3"></div></div></div>
-<div class="card"><h2>⭐ Player Stats</h2><p>XP: <span id="passportXP"></span></p><p>Level: <span id="passportLevel"></span></p></div>
+<div class="card"><h2>🍔 Food Market</h2><p id="u5Badge">🔒 Food Explorer</p><div class="progress"><div id="passU5"></div></div></div><div class="card"><h2>⭐ Player Stats</h2><p>XP: <span id="passportXP"></span></p><p>Level: <span id="passportLevel"></span></p></div>
 <div class="card"><h2>🔒 Next World</h2><h3>🐨 Animal Island</h3><p>Next challenge: descriptions, habitats, quantities, and reading clues.</p></div></section>
 </div>
 
@@ -171,25 +218,26 @@ The station is across from the hotel. The museum is next to the hotel. Amy is at
    The previous version used wv3xp / wv3done / wv3schooldone. */
 let progress=JSON.parse(localStorage.getItem("wesley_progress")||"{}");
 
-if(!localStorage.getItem("wesley_progress")){
-  const oldU1=JSON.parse(localStorage.getItem("wv3done")||"[]");
-  const oldU2=JSON.parse(localStorage.getItem("wv3schooldone")||"[]");
-  progress={
-    u1: oldU1,
-    u2: oldU2
-  };
+/* Legacy migration: safely merge old v3 records instead of overwriting new records. */
+const legacyU1=JSON.parse(localStorage.getItem("wv3done")||"[]");
+const legacyU2=JSON.parse(localStorage.getItem("wv3schooldone")||"[]");
+if(!progress || typeof progress!=="object") progress={};
+if(legacyU1.length){
+  progress.u1=[...new Set([...(progress.u1||[]),...legacyU1])];
+}
+if(legacyU2.length){
+  progress.u2=[...new Set([...(progress.u2||[]),...legacyU2])];
 }
 
-let xp=Number(localStorage.getItem("wesley_xp"));
-if(!Number.isFinite(xp)){
-  xp=Number(localStorage.getItem("wv3xp"))||0;
-}
+let newXP=Number(localStorage.getItem("wesley_xp"));
+let legacyXP=Number(localStorage.getItem("wv3xp"))||0;
+let xp=Number.isFinite(newXP)?Math.max(newXP,legacyXP):legacyXP;
 
 let builderWords=[];
 const units={
   u1:{total:3,badge:"Calendar Fixer"},
   u2:{total:8,badge:"Sentence Explorer"},
-  u3:{total:4,badge:"Travel Navigator"}
+  u3:{total:4,badge:"Travel Navigator"},u4:{total:4,badge:"Wildlife Detective"},u5:{total:5,badge:"Food Explorer"}
 };
 
 function show(id,button){
@@ -211,7 +259,7 @@ function unitPercent(unit){
  return Math.min(100,Math.round(completed/units[unit].total*100));
 }
 function refresh(){
- let u1=unitPercent("u1"),u2=unitPercent("u2"),u3=unitPercent("u3");
+ let u1=unitPercent("u1"),u2=unitPercent("u2"),u3=unitPercent("u3"),u4=unitPercent("u4"),u5=unitPercent("u5");
  document.getElementById("xp").textContent=xp;
  let level=Math.floor(xp/50)+1;
  document.getElementById("level").textContent=level;
@@ -222,8 +270,8 @@ function refresh(){
  document.getElementById("unit2Pct").textContent="Challenge progress "+u2+"%";
  document.getElementById("passU2").style.width=u2+"%";
  document.getElementById("unit3Prog").style.width=u3+"%";
- document.getElementById("unit3Pct").textContent="Travel progress "+u3+"%";
- let overall=Math.round((u1+u2+u3)/3);
+ document.getElementById("unit3Pct").textContent="Travel progress "+u3+"%";document.getElementById("unit4Prog").style.width=u4+"%";document.getElementById("unit4Pct").textContent="Animal progress "+u4+"%";document.getElementById("unit5Prog").style.width=u5+"%";document.getElementById("unit5Pct").textContent="Food progress "+u5+"%";
+ let overall=Math.round((u1+u2+u3+u4+u5)/5);
  document.getElementById("homeProg").style.width=overall+"%";
  document.getElementById("homePct").textContent=overall+"% completed";
  document.getElementById("passportXP").textContent=xp;
@@ -285,6 +333,18 @@ function resetTravelBuilder(){
  document.getElementById("travelBuilder").textContent="";
  document.getElementById("travelBuilderFeed").textContent="";
 }
+
+let foodWords=[];
+document.querySelectorAll(".foodblock").forEach(button=>button.addEventListener("click",()=>{
+ let word=button.dataset.word;if(foodWords.includes(word))return;
+ foodWords.push(word);document.getElementById("foodBuilder").textContent=foodWords.join(" ");
+}));
+function checkFoodBuilder(){
+ let answer=foodWords.join(" "),feedback=document.getElementById("foodBuilderFeed");
+ if(answer==="I would like some juice."){feedback.textContent="🍹 Perfect order! +10 XP";complete("u5","u5builder");}
+ else feedback.textContent="🧩 Try: I → would → like → some → juice.";
+}
+function resetFoodBuilder(){foodWords=[];document.getElementById("foodBuilder").textContent="";document.getElementById("foodBuilderFeed").textContent="";}
 
 function saveNote(){
  localStorage.setItem("wesley_journal",document.getElementById("note").value);

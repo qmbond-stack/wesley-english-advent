@@ -48,6 +48,7 @@ textarea{width:100%;min-height:120px;border:2px dashed #b9aa99;border-radius:16p
 <button class="on" onclick="show('home',this)">🏠 Home</button>
 <button onclick="show('u1',this)">📅 Day Village</button>
 <button onclick="show('u2',this)">🏫 School City</button>
+<button onclick="show('u3',this)">🗺️ Travel Town</button>
 <button onclick="show('journal',this)">📔 Journal</button>
 <button onclick="show('passport',this)">🏆 Passport</button>
 </nav>
@@ -61,7 +62,7 @@ textarea{width:100%;min-height:120px;border:2px dashed #b9aa99;border-radius:16p
 <div class="card"><h2>🗺️ Adventure Map</h2><div class="map">
 <button class="world" style="background:#cceeff" onclick="show('u1',document.querySelectorAll('.nav button')[1])"><span>📅🏘️</span><b>DAY VILLAGE</b>Fix the broken week<br><small>Unit 1 · OPEN</small></button>
 <button class="world" style="background:#dff4dc" onclick="show('u2',document.querySelectorAll('.nav button')[2])"><span>🏫🎒</span><b>SCHOOL CITY</b>Sentence Explorer Challenge<br><small>Unit 2 · CHALLENGE</small></button>
-<button class="world locked"><span>🗺️🚏</span><b>TRAVEL TOWN</b>Choose your route</button>
+<button class="world" style="background:#ffe3b5" onclick="show('u3',document.querySelectorAll('.nav button')[3])"><span>🗺️🚏</span><b>TRAVEL TOWN</b>Choose your route<br><small>Unit 3 · NEW</small></button>
 <button class="world locked"><span>🐨🌳</span><b>ANIMAL ISLAND</b>Survival English</button>
 </div></div>
 <div class="card mission"><h2>🎯 Challenge Status</h2><p><b>Current Mission:</b> School City</p><div class="progress"><div id="homeProg"></div></div><p id="homePct">0% completed</p></div>
@@ -95,20 +96,101 @@ textarea{width:100%;min-height:120px;border:2px dashed #b9aa99;border-radius:16p
 <div class="card"><h2>🏆 School City Reward</h2><p class="badge">🔒 → 🏫🏅</p><p id="schoolReward">Complete the challenge to unlock: <b>Sentence Explorer</b></p></div>
 </section>
 
+
+<section id="u3" class="page">
+<div class="hero">
+<div class="small">UNIT 3 · TRAVEL TOWN</div>
+<h1>🗺️ Route Rescue!</h1>
+<p>⚠️ Travel Bot 把地圖和交通資訊搞亂了。這次你要讀懂方向、交通方式，還要做出正確選擇。</p>
+<div class="progress"><div id="unit3Prog"></div></div>
+<p id="unit3Pct">Travel progress 0%</p>
+</div>
+
+<div class="card challenge">
+<h2>🚇 Stage 1 · Choose the Right Way</h2>
+<p>Wesley wants to go to the museum. The subway is the fastest way.</p>
+<p><b>How should Wesley go?</b></p>
+<div class="choices" data-unit="u3" data-id="u3q1" data-answer="By subway">
+<button class="choice">By subway</button><button class="choice">By sleeping</button><button class="choice">By homework</button>
+</div><div class="feedback"></div>
+</div>
+
+<div class="card">
+<h2>🧭 Stage 2 · Ask for Directions</h2>
+<div class="reading"><b>Travel Guide</b><br><br>
+A: Excuse me. Where is the library?<br>
+B: Go straight and turn left at the bank. The library is next to the park.</div>
+<p><b>What should you do at the bank?</b></p>
+<div class="choices" data-unit="u3" data-id="u3q2" data-answer="Turn left">
+<button class="choice">Turn left</button><button class="choice">Turn right</button><button class="choice">Go home</button>
+</div><div class="feedback"></div>
+</div>
+
+<div class="card challenge">
+<h2>🧩 Stage 3 · Travel Sentence Builder</h2>
+<p>組出正確問句：</p><p><b>你怎麼去學校？</b></p>
+<div id="travelBuilder" class="builder"></div>
+<div class="choices">
+<button class="choice travelblock" data-word="How">How</button>
+<button class="choice travelblock" data-word="do">do</button>
+<button class="choice travelblock" data-word="you">you</button>
+<button class="choice travelblock" data-word="go">go</button>
+<button class="choice travelblock" data-word="to school?">to school?</button>
+</div>
+<button class="go" onclick="checkTravelBuilder()">✨ Check Route</button>
+<div id="travelBuilderFeed" class="feedback"></div>
+<button class="choice" onclick="resetTravelBuilder()">🔄 Reset</button>
+</div>
+
+<div class="card boss">
+<h2>👾 FINAL BOSS · Travel Bot</h2>
+<div class="scene"><div class="big">🤖🗺️🚦</div><p>Travel Bot: Find the correct route or stay lost forever!</p></div>
+<div class="reading"><b>Map Mission</b><br><br>
+The station is across from the hotel. The museum is next to the hotel. Amy is at the station and wants to go to the museum.</div>
+<p><b>Where should Amy go?</b></p>
+<div class="choices" data-unit="u3" data-id="u3boss" data-answer="Next to the hotel">
+<button class="choice">Next to the hotel</button><button class="choice">Under the bus</button><button class="choice">Inside the station</button>
+</div><div class="feedback"></div>
+</div>
+
+<div class="card"><h2>🏆 Travel Town Reward</h2><p class="badge">🔒 → 🧭🏅</p><p id="travelReward">完成 4 個挑戰，解鎖 <b>Travel Navigator</b>！</p></div>
+</section>
+
 <section id="journal" class="page"><div class="hero"><h1>📔 My English Journal</h1><p>Write your own English.</p></div><div class="card"><h2>⭐ Today's Challenge</h2><p>Write one sentence about your school.</p><textarea id="note" placeholder="I have English on Monday."></textarea><br><br><button class="go" onclick="saveNote()">💾 Save My Page</button><div id="saved" class="feedback"></div></div></section>
 
 <section id="passport" class="page"><div class="hero"><h1>🏆 Wesley's Passport</h1><p>Your adventure is getting harder!</p></div>
 <div class="card"><h2>📅 Day Village</h2><p id="u1Badge">🔒 Calendar Fixer</p><div class="progress"><div id="passU1"></div></div></div>
 <div class="card"><h2>🏫 School City</h2><p id="u2Badge">🔒 Sentence Explorer</p><div class="progress"><div id="passU2"></div></div></div>
+<div class="card"><h2>🗺️ Travel Town</h2><p id="u3Badge">🔒 Travel Navigator</p><div class="progress"><div id="passU3"></div></div></div>
 <div class="card"><h2>⭐ Player Stats</h2><p>XP: <span id="passportXP"></span></p><p>Level: <span id="passportLevel"></span></p></div>
-<div class="card"><h2>🔒 Next World</h2><h3>🗺️ Travel Town</h3><p>Next challenge: Ask directions. Read maps. Choose transportation. Solve travel problems.</p></div></section>
+<div class="card"><h2>🔒 Next World</h2><h3>🐨 Animal Island</h3><p>Next challenge: descriptions, habitats, quantities, and reading clues.</p></div></section>
 </div>
 
 <script>
-let xp=Number(localStorage.getItem("wesley_xp"))||0;
+/* v3.2 keeps the new data format AND migrates the original v3 records.
+   The previous version used wv3xp / wv3done / wv3schooldone. */
 let progress=JSON.parse(localStorage.getItem("wesley_progress")||"{}");
+
+if(!localStorage.getItem("wesley_progress")){
+  const oldU1=JSON.parse(localStorage.getItem("wv3done")||"[]");
+  const oldU2=JSON.parse(localStorage.getItem("wv3schooldone")||"[]");
+  progress={
+    u1: oldU1,
+    u2: oldU2
+  };
+}
+
+let xp=Number(localStorage.getItem("wesley_xp"));
+if(!Number.isFinite(xp)){
+  xp=Number(localStorage.getItem("wv3xp"))||0;
+}
+
 let builderWords=[];
-const units={u1:{total:3,badge:"Calendar Fixer"},u2:{total:8,badge:"Sentence Explorer"}};
+const units={
+  u1:{total:3,badge:"Calendar Fixer"},
+  u2:{total:8,badge:"Sentence Explorer"},
+  u3:{total:4,badge:"Travel Navigator"}
+};
 
 function show(id,button){
  document.querySelectorAll(".page").forEach(page=>page.classList.remove("on"));
@@ -129,7 +211,7 @@ function unitPercent(unit){
  return Math.min(100,Math.round(completed/units[unit].total*100));
 }
 function refresh(){
- let u1=unitPercent("u1"),u2=unitPercent("u2");
+ let u1=unitPercent("u1"),u2=unitPercent("u2"),u3=unitPercent("u3");
  document.getElementById("xp").textContent=xp;
  let level=Math.floor(xp/50)+1;
  document.getElementById("level").textContent=level;
@@ -139,13 +221,17 @@ function refresh(){
  document.getElementById("unit2Prog").style.width=u2+"%";
  document.getElementById("unit2Pct").textContent="Challenge progress "+u2+"%";
  document.getElementById("passU2").style.width=u2+"%";
- let overall=Math.round((u1+u2)/2);
+ document.getElementById("unit3Prog").style.width=u3+"%";
+ document.getElementById("unit3Pct").textContent="Travel progress "+u3+"%";
+ let overall=Math.round((u1+u2+u3)/3);
  document.getElementById("homeProg").style.width=overall+"%";
  document.getElementById("homePct").textContent=overall+"% completed";
  document.getElementById("passportXP").textContent=xp;
  document.getElementById("passportLevel").textContent=level;
  document.getElementById("u1Badge").textContent=u1===100?"🏅 Calendar Fixer · UNLOCKED":"🔒 Calendar Fixer";
  document.getElementById("u2Badge").textContent=u2===100?"🏅 Sentence Explorer · UNLOCKED":"🔒 Sentence Explorer";
+ document.getElementById("passU3").style.width=u3+"%";
+ document.getElementById("u3Badge").textContent=u3===100?"🏅 Travel Navigator · UNLOCKED":"🔒 Travel Navigator";
  if(u2===100)document.getElementById("schoolReward").innerHTML="🎉 Amazing! You unlocked <b>Sentence Explorer!</b>";
  save();
 }
@@ -179,6 +265,27 @@ function checkBuilder(){
  }else feedback.textContent="🧩 Think about question order.";
 }
 function resetBuilder(){builderWords=[];document.getElementById("builder").textContent="";document.getElementById("builderFeed").textContent="";}
+
+let travelWords=[];
+document.querySelectorAll(".travelblock").forEach(button=>button.addEventListener("click",()=>{
+ let word=button.dataset.word;
+ if(travelWords.includes(word))return;
+ travelWords.push(word);
+ document.getElementById("travelBuilder").textContent=travelWords.join(" ");
+}));
+function checkTravelBuilder(){
+ let answer=travelWords.join(" "),feedback=document.getElementById("travelBuilderFeed");
+ if(answer==="How do you go to school?"){
+  feedback.textContent="🧭 Perfect! +10 XP";
+  complete("u3","u3builder");
+ }else feedback.textContent="🧩 Think: question word → do → subject → verb.";
+}
+function resetTravelBuilder(){
+ travelWords=[];
+ document.getElementById("travelBuilder").textContent="";
+ document.getElementById("travelBuilderFeed").textContent="";
+}
+
 function saveNote(){
  localStorage.setItem("wesley_journal",document.getElementById("note").value);
  document.getElementById("saved").textContent="📔 Saved! Great job!";

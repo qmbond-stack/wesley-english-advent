@@ -30,7 +30,7 @@ body{margin:0;font-family:system-ui,"PingFang TC",sans-serif;background:#182536;
 .reading{background:#eef7ff;padding:18px;border-radius:20px;font-size:19px;line-height:1.7}.challenge{background:#efe4ff;border-left:8px solid #9c7cff}
 textarea{width:100%;min-height:120px;border:2px dashed #b9aa99;border-radius:16px;padding:14px;font-size:17px}
 @media(max-width:600px){.map{grid-template-columns:1fr}}
-</style>
+.arcade-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.arcade-btn{border:0;border-radius:22px;padding:18px;font-weight:900;font-size:17px;cursor:pointer;background:#e9f6ff}.arcade-btn:nth-child(2n){background:#fff0c8}.treasure{font-size:72px;text-align:center;cursor:pointer}@media(max-width:600px){.arcade-grid{grid-template-columns:1fr}}</style>
 </head>
 <body>
 <div class="app">
@@ -52,7 +52,7 @@ textarea{width:100%;min-height:120px;border:2px dashed #b9aa99;border-radius:16p
 <button onclick="show('u4',this)">🐨 Animal Island</button>
 <button onclick="show('u5',this)">🍔 Food Market</button>
 <button onclick="show('journal',this)">📔 Journal</button>
-<button onclick="show('passport',this)">🏆 Passport</button>
+<button onclick="show('arcade',this)">🕹️ XP Arcade</button><button onclick="show('passport',this)">🏆 Passport</button>
 </nav>
 
 <section id="home" class="page on">
@@ -205,7 +205,7 @@ Wesley: I would like a hamburger and orange juice.</div>
 </section>
 <section id="journal" class="page"><div class="hero"><h1>📔 My English Journal</h1><p>Write your own English.</p></div><div class="card"><h2>⭐ Today's Challenge</h2><p>Write one sentence about your school.</p><textarea id="note" placeholder="I have English on Monday."></textarea><br><br><button class="go" onclick="saveNote()">💾 Save My Page</button><div id="saved" class="feedback"></div></div></section>
 
-<section id="passport" class="page"><div class="hero"><h1>🏆 Wesley's Passport</h1><p>Your adventure is getting harder!</p></div>
+<section id="arcade" class="page"><div class="hero"><div class="small">XP ADVENTURE UPDATE · v4.0</div><h1>🕹️ XP Arcade</h1><p>主線是冒險，支線是寶藏。Wesley，今天要刷多少 XP？🤣</p><div class="stats"><div class="stat">🔥 Combo <span id="combo">0</span></div><div class="stat">🏆 Best <span id="bestCombo">0</span></div></div></div><div class="card"><h2>⚡ Quick Quiz</h2><p>隨機 5 題，連續答對會加成 XP。</p><div id="arcadeQuestion" class="reading">Press Start!</div><div id="arcadeChoices" class="choices"></div><div id="arcadeFeed" class="feedback"></div><button class="go" onclick="startQuickQuiz()">▶ Start Quick Quiz</button></div><div class="card"><h2>🎁 Treasure Box</h2><p>每 24 小時可以開一次。可能是 +10，也可能 JACKPOT +100！</p><div class="treasure" onclick="openTreasure()">🎁</div><div id="treasureFeed" class="feedback"></div></div><div class="card"><h2>🏅 Side Quest Board</h2><div class="arcade-grid"><button class="arcade-btn" onclick="unitQuiz('u1')">📅 Day Rush</button><button class="arcade-btn" onclick="unitQuiz('u2')">🏫 School Sprint</button><button class="arcade-btn" onclick="unitQuiz('u3')">🗺️ Travel Dash</button><button class="arcade-btn" onclick="unitQuiz('u4')">🐨 Wild Hunt</button><button class="arcade-btn" onclick="unitQuiz('u5')">🍔 Food Rush</button></div><div id="unitQuizArea" style="margin-top:14px"></div></div><div class="card"><h2>🎖️ Achievements</h2><p id="achievementStatus">🔒 XP Hunter · Earn 100 XP</p><p id="achievementCombo">🔒 Combo Master · 5 in a row</p></div></section><section id="passport" class="page"><div class="hero"><h1>🏆 Wesley's Passport</h1><p>Your adventure is getting harder!</p></div>
 <div class="card"><h2>📅 Day Village</h2><p id="u1Badge">🔒 Calendar Fixer</p><div class="progress"><div id="passU1"></div></div></div>
 <div class="card"><h2>🏫 School City</h2><p id="u2Badge">🔒 Sentence Explorer</p><div class="progress"><div id="passU2"></div></div></div>
 <div class="card"><h2>🗺️ Travel Town</h2><p id="u3Badge">🔒 Travel Navigator</p><div class="progress"><div id="passU3"></div></div></div>
@@ -275,7 +275,7 @@ function refresh(){
  document.getElementById("homeProg").style.width=overall+"%";
  document.getElementById("homePct").textContent=overall+"% completed";
  document.getElementById("passportXP").textContent=xp;
- document.getElementById("passportLevel").textContent=level;
+ document.getElementById("passportLevel").textContent=level;let c=document.getElementById("combo"),bc=document.getElementById("bestCombo");if(c)c.textContent=combo;if(bc)bc.textContent=bestCombo;let a=document.getElementById("achievementStatus"),ac=document.getElementById("achievementCombo");if(a)a.textContent=xp>=100?"🏅 XP Hunter · UNLOCKED":"🔒 XP Hunter · Earn 100 XP";if(ac)ac.textContent=bestCombo>=5?"🔥 Combo Master · UNLOCKED":"🔒 Combo Master · 5 in a row";
  document.getElementById("u1Badge").textContent=u1===100?"🏅 Calendar Fixer · UNLOCKED":"🔒 Calendar Fixer";
  document.getElementById("u2Badge").textContent=u2===100?"🏅 Sentence Explorer · UNLOCKED":"🔒 Sentence Explorer";
  document.getElementById("passU3").style.width=u3+"%";
@@ -346,7 +346,7 @@ function checkFoodBuilder(){
 }
 function resetFoodBuilder(){foodWords=[];document.getElementById("foodBuilder").textContent="";document.getElementById("foodBuilderFeed").textContent="";}
 
-function saveNote(){
+let combo=Number(localStorage.getItem("wesley_combo"))||0,bestCombo=Number(localStorage.getItem("wesley_best_combo"))||0,arcadeIndex=0,arcadeScore=0;const arcadeBank=[["What day comes after Monday?",["Tuesday","Friday","Sunday"],"Tuesday"],["Which subject uses a ball?",["PE","Math","Art"],"PE"],["How do you go to school?",["By bus","Blue","Koala"],"By bus"],["Which animal has a long neck?",["Giraffe","Fish","Penguin"],"Giraffe"],["What is ten plus twenty?",["30","20","40"],"30"],["What do penguins eat?",["Fish","Pizza","Books"],"Fish"]];const sideBank={u1:["Sunday comes after Saturday.",["True","False"],"True"],u2:["Which is a school subject?",["Math","Koala"],"Math"],u3:["Which is transport?",["Bus","Apple"],"Bus"],u4:["Which animal has a pouch?",["Kangaroo","Whale"],"Kangaroo"],u5:["How much is a $50 item?",["$50","$5"],"$50"]};function arcadeSave(){localStorage.setItem("wesley_combo",combo);localStorage.setItem("wesley_best_combo",bestCombo)}function arcadeAward(ok){if(ok){combo++;bestCombo=Math.max(bestCombo,combo);addXP(10+(combo>=5?20:combo>=3?5:0))}else combo=0;arcadeSave();refresh()}function startQuickQuiz(){arcadeIndex=0;arcadeScore=0;renderArcade()}function renderArcade(){if(arcadeIndex>=5){document.getElementById("arcadeQuestion").textContent="🏁 Finished! Score: "+arcadeScore+"/5";document.getElementById("arcadeChoices").innerHTML="";return}let q=arcadeBank[Math.floor(Math.random()*arcadeBank.length)];document.getElementById("arcadeQuestion").textContent=(arcadeIndex+1)+"/5 · "+q[0];let box=document.getElementById("arcadeChoices");box.innerHTML="";q[1].sort(()=>Math.random()-.5).forEach(a=>{let b=document.createElement("button");b.className="choice";b.textContent=a;b.onclick=()=>{let ok=a===q[2];document.getElementById("arcadeFeed").textContent=ok?"🔥 Correct! XP!":"💡 Combo reset!";if(ok)arcadeScore++;arcadeAward(ok);arcadeIndex++;renderArcade()};box.appendChild(b)})}function unitQuiz(unit){let q=sideBank[unit],area=document.getElementById("unitQuizArea");area.innerHTML="<div class='reading'>⚔️ Side Quest: "+q[0]+"</div><div class='choices' id='sideChoices'></div><div id='sideFeed' class='feedback'></div>";let box=document.getElementById("sideChoices");q[1].forEach(a=>{let b=document.createElement("button");b.className="choice";b.textContent=a;b.onclick=()=>{let ok=a===q[2];document.getElementById("sideFeed").textContent=ok?"🏆 Side Quest Complete! +15 XP":"💡 Try another quest!";if(ok){addXP(15);combo++;bestCombo=Math.max(bestCombo,combo)}else combo=0;arcadeSave();refresh()};box.appendChild(b)})}function openTreasure(){let last=Number(localStorage.getItem("wesley_treasure_time"))||0,now=Date.now();if(now-last<86400000){document.getElementById("treasureFeed").textContent="⏳ Treasure opens once every 24 hours.";return}let r=Math.random(),reward=r<.05?100:r<.25?50:r<.65?30:10;addXP(reward);localStorage.setItem("wesley_treasure_time",now);document.getElementById("treasureFeed").textContent=(reward===100?"💎 JACKPOT! ":"🎉 Treasure! ")+"+"+reward+" XP"}function saveNote(){
  localStorage.setItem("wesley_journal",document.getElementById("note").value);
  document.getElementById("saved").textContent="📔 Saved! Great job!";
 }
